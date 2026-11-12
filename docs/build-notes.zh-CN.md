@@ -20,6 +20,13 @@
 | 触控板、无线与音频 | 可启动桌面之后，内置设备仍需逐项适配。触控板涉及中断和超时；Wi-Fi 与蓝牙需各自的驱动组合。 | 使用 I²C 驱动及触控板插件，锁定 AX201 Wi-Fi 与 Intel 蓝牙发行件，采用 AppleALC 布局 37，加入电池管理组件。改版触控板和上游版的区别见[依赖与来源](components.md)。 |
 | 发布 | 同一 U 盘积累了阶段备份、诊断与实验版本。 | 以生效 EFI 为底稿，清除本机 SMBIOS 标识，按启用的组件编制发行包，保留 Windows 回退路径和依赖校验值。 |
 
+## 发行后实测
+
+- **150% HiDPI。** 参考机使用本地 `RealmeNativeHiDPI.kext` 1.2.1 正常进入桌面，macOS 报告「看起来像 1440 × 960」并以 2880 × 1920 渲染，内屏物理分辨率为 2160 × 1440。这是发行后的实测结果，`v0.1.0` 发行包未包含此版本。
+- **125% HiDPI 故障。** 多档试验版在选中「看起来像 1728 × 1152」后黑屏，随后普通启动也进不了桌面。安全模式仍可进入。恢复时备份了 EFI 和显示偏好，换回已验证的 1.1.0，移除保存的失败显示档位，再确认普通启动。仅替换驱动可能留下失败档位。调整前请保留可启动 EFI，并准备从 Windows 或安全模式恢复。
+- **内置设备。** 扬声器可播放，Photo Booth 有实时预览，内置麦克风电平未响应。蓝牙用 VXE R1 S 验证了配对及鼠标关机后自动重连。参考机的 Goodix 触控板使用改版 VoodooI2C/VoodooI2CHID，慢划卡顿和跳动已在参考机上解决。当前文件与 `Personal` 模式的 15 项哈希一致，上游默认模式的表现需单独验证。
+- **防止误点系统更新。** 参考机关闭了自动检查、下载和安装，另外通过本地描述文件停用「系统设置 → 通用 → 软件更新」按钮。描述文件使用 `com.apple.systempreferences` 的 `DisabledSystemSettings`，目标为 `com.apple.Software-Update-Settings.extension`，无需常驻脚本。移除该描述文件可恢复界面入口。终端或独立安装器仍可手动更新。[Apple 描述文件规范](https://github.com/apple/device-management/blob/release/mdm/profiles/com.apple.systempreferences.yaml)
+
 ## 〓复现顺序〓
 
 可重复的顺序为 U 盘引导、确认 Windows 回退、完成 macOS 安装、配套启用图形组件，随后验证内置设备。已有 macOS 的同机型可直接从[快速安装](../README.md)组装 EFI。

@@ -2,7 +2,7 @@
 
 ## 〓发行包内容 / Included Files〓
 
-EFI 的 OpenCore、ACPI 与已启用的机型适配组件取自参考机当前启动 U 盘。`PlatformInfo → Generic` 的本机身份字段使用模板。 OpenCore, ACPI, and the included model-specific components come from the active EFI on the reference unit. Machine-specific fields in `PlatformInfo → Generic` use template values.
+v0.1.0 发行包的 OpenCore、ACPI 与机型适配组件取自参考机发布时的启动 U 盘。`PlatformInfo → Generic` 的本机身份字段使用模板。 The v0.1.0 archive contains OpenCore, ACPI, and model-specific components from the reference USB EFI at release time. Machine-specific fields in `PlatformInfo → Generic` use template values.
 
 | 组件 / Component | 版本与来源 / Version and Source |
 | --- | --- |
@@ -12,7 +12,7 @@ EFI 的 OpenCore、ACPI 与已启用的机型适配组件取自参考机当前�
 | AppleALC | 1.9.8 · [AppleALC](https://github.com/acidanthera/AppleALC/releases/tag/1.9.8) |
 | BrightnessKeys | 1.0.3 · [BrightnessKeys](https://github.com/acidanthera/BrightnessKeys/releases/tag/1.0.3) |
 | WhateverXe-Keep-PWM | 参考机本地构建，基于 0.8.0。 Local build based on 0.8.0. [WhateverXe](https://github.com/b00t0x/WhateverXe/releases/tag/0.8.0) |
-| RealmeNativeHiDPI、SSDT-RealmeRecovery、SSDT-PNLF-Realme | 参考机适配组件。 Model-specific components from the reference EFI. |
+| RealmeNativeHiDPI、SSDT-RealmeRecovery、SSDT-PNLF-Realme | 参考机适配组件。发行后验证的 RealmeNativeHiDPI 1.2.1 见[实测记录](build-notes.zh-CN.md#发行后实测)。 Model-specific components. See [post-release testing](build-notes.en.md#post-release-testing) for RealmeNativeHiDPI 1.2.1. |
 
 上游版权与许可文本随仓库和发行包附在 [licenses](../licenses) 目录。 Upstream notices and license texts are supplied in [licenses](../licenses).
 
