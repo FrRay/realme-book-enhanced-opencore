@@ -10,22 +10,25 @@ This project packages a macOS Sequoia configuration for the realme Book Enhanced
 
 | Item | Reference setup |
 | --- | --- |
-| Model | realme Book Enhanced Edition (CloudProXXXX), Intel Core i5-11320H |
+| Model | realme Book Enhanced Edition (2022, CloudProXXXX), Intel Core i5-11320H |
 | Graphics and wireless | Intel Iris Xe, 2160 × 1440 internal panel, Intel Wi-Fi 6 AX201 |
 | Software | macOS Sequoia 15.8.3 (24H241, Darwin 24.6.0), OpenCore 1.0.8 |
 
-The configuration was checked by hand on one reference unit. Results may differ on other models, macOS updates, and peripheral combinations.
+These results come from one reference laptop. Changes validated after the release are marked separately. See the tagged release for the files it ships.
 
 | Area | Configuration |
 | --- | --- |
 | Boot | OpenCore picker, macOS installation stages, and Windows Boot Manager fallback |
-| Graphics and panel | WhateverXe, brightness and PWM adjustments, and 1080 × 720 @2× HiDPI. External display compatibility remains undocumented |
+| Graphics and panel | WhateverXe graphics acceleration, brightness and PWM adjustments, and 1080 × 720 @2× HiDPI. See [post-release testing](docs/build-notes.en.md#post-release-testing) for 150% HiDPI. External displays remain unverified |
 | Input | Built-in keyboard, function keys, and I²C touchpad. The upstream touchpad build differs from the local build used on the reference unit |
-| Wireless | AX201 Wi-Fi, Intel Bluetooth firmware, and BlueToolFixup |
-| Audio | AppleALC with layout ID 37 |
+| Wireless | AX201 Wi-Fi connected. A Bluetooth mouse paired and reconnected after being switched off and back on |
+| Audio | Internal speakers play audio (AppleALC layout 37). The built-in microphone showed no input level |
+| Camera | Live preview worked in Photo Booth. Photo and video capture remain unverified |
 | Power | Battery support through SMCBatteryManager. Sleep and wake compatibility remain undocumented |
 
 ## 〓Quick Start〓
+
+The repository contains the configuration template, dependency manifest, and assembly script. Before running the script, extract the separately uploaded EFI ZIP from the release page. It supplies the base files for assembly.
 
 1. **Release files.** The [release page](https://github.com/FrRay/realme-book-enhanced-opencore/releases/tag/v0.1.0) contains `realme-book-enhanced-opencore-v0.1.0-efi.zip` and `SHA256SUMS.txt`. The archive can be checked with `Get-FileHash -Algorithm SHA256 .\realme-book-enhanced-opencore-v0.1.0-efi.zip` before extraction.
 2. **EFI assembly.** The command below runs in PowerShell from the extracted folder. It downloads pinned upstream files, checks SHA-256, and generates `EFI-ready/EFI`. The default is upstream VoodooI2C. Hands-on validation on the reference unit used the local touchpad build.
