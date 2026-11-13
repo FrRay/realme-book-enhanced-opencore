@@ -27,6 +27,14 @@
 - **内置设备。** 扬声器可播放，Photo Booth 有实时预览，内置麦克风电平未响应。蓝牙用 VXE R1 S 验证了配对及鼠标关机后自动重连。参考机的 Goodix 触控板使用改版 VoodooI2C/VoodooI2CHID，慢划卡顿和跳动已在参考机上解决。当前文件与 `Personal` 模式的 15 项哈希一致，上游默认模式的表现需单独验证。
 - **防止误点系统更新。** 参考机关闭了自动检查、下载和安装，另外通过本地描述文件停用「系统设置 → 通用 → 软件更新」按钮。描述文件使用 `com.apple.systempreferences` 的 `DisabledSystemSettings`，目标为 `com.apple.Software-Update-Settings.extension`，无需常驻脚本。移除该描述文件可恢复界面入口。终端或独立安装器仍可手动更新。[Apple 描述文件规范](https://github.com/apple/device-management/blob/release/mdm/profiles/com.apple.systempreferences.yaml)
 
+## 睡眠与唤醒实测
+
+参考机在 Sequoia 15.8.3（24H241）上从苹果菜单进入睡眠后，无法恢复桌面，需要强制关机。进入 macOS 后拔掉 OpenCore 启动 U 盘也能复现。关闭休眠写盘、待机、Power Nap、睡眠网络保活和近距离唤醒后，仍出现 `Sleep Wake failure in EFI`（`0x1F`）。
+
+本地试验通过 ACPI 补丁向 macOS 暴露固件的 `PEPD` 电源设备，并加载 S0ixStandby 0.4.0。macOS 报告 `IOPMDeepIdleSupported = Yes`，桌面上的电源策略查询返回类型 7（Deep Idle）。这个查询只反映当时的策略。暂停 S0ixStandby 的固件电源调用后，仍需要强制关机。那一轮日志记录了息屏和显示驱动开始恢复，但没有留下完整的整机睡眠及唤醒记录。
+
+相近的 Tiger Lake-H35 / Iris Xe `9A49` 机型有内屏唤醒成功的报告，接入已开启的 HDMI 显示器后仍会卡死。本机已核对上游讨论中的 eDP 补丁所检查的驱动函数位置和关键字节，实际加载与唤醒仍待验证。这里记录的是发行后试验，`v0.1.0` 没有包含这些改动。 [WhateverXe #43](https://github.com/b00t0x/WhateverXe/issues/43) · [WhateverXe #59](https://github.com/b00t0x/WhateverXe/issues/59) · [S0ixStandby #3](https://github.com/labrouss/S0ixStandby/issues/3)
+
 ## 〓复现顺序〓
 
 可重复的顺序为 U 盘引导、确认 Windows 回退、完成 macOS 安装、配套启用图形组件，随后验证内置设备。已有 macOS 的同机型可直接从[快速安装](../README.md)组装 EFI。

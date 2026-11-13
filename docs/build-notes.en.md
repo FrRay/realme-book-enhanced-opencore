@@ -27,6 +27,14 @@ The reference laptop already had Windows 11 and C and D volumes on one SSD. The 
 - **Built-in devices.** The speakers played audio and Photo Booth showed live video. The built-in microphone showed no input level. A VXE R1 S mouse paired over Bluetooth and reconnected after a power cycle. The modified VoodooI2C/VoodooI2CHID builds fixed stalling and jumping during slow finger movement on the reference Goodix touchpad. All 15 files match the hashes for `Personal` mode. The default upstream build needs separate testing.
 - **Preventing accidental system updates.** The reference laptop has automatic checking, downloading, and installation turned off. A local profile also disables the Software Update button in System Settings → General. It uses `DisabledSystemSettings` in the `com.apple.systempreferences` payload with `com.apple.Software-Update-Settings.extension`. No background script is needed. Removing the profile restores the button. Terminal and standalone installers can still perform manual updates. [Apple profile specification](https://github.com/apple/device-management/blob/release/mdm/profiles/com.apple.systempreferences.yaml)
 
+## Sleep and wake testing
+
+On Sequoia 15.8.3 (24H241), the reference laptop failed to return to the desktop after choosing Sleep from the Apple menu and required a forced shutdown. This also happened with the OpenCore USB drive unplugged after macOS had started. Disabling hibernation, standby, Power Nap, network keepalive during sleep, and proximity wake still produced `Sleep Wake failure in EFI` (`0x1F`).
+
+A local ACPI patch exposed the firmware's `PEPD` device to macOS, and S0ixStandby 0.4.0 loaded. macOS reported `IOPMDeepIdleSupported = Yes`, and a power policy query from the desktop returned type 7 (Deep Idle). The query reflects the policy at the time of the check. A forced shutdown was still required with S0ixStandby's firmware power calls disabled. The log for that trial captured the display turning off and the graphics driver starting to restore it, with no complete system sleep and wake record.
+
+A similar Tiger Lake-H35 laptop with Iris Xe `9A49` resumed successfully with its internal display alone and still froze with an active HDMI monitor. The function offsets and bytes checked by the eDP patch discussed upstream match the reference laptop's framebuffer binary. Loading the patch and testing wake on the reference laptop are still pending. These tests took place after `v0.1.0`, which does not ship the experimental changes. [WhateverXe #43](https://github.com/b00t0x/WhateverXe/issues/43) · [WhateverXe #59](https://github.com/b00t0x/WhateverXe/issues/59) · [S0ixStandby #3](https://github.com/labrouss/S0ixStandby/issues/3)
+
 ## 〓Reproduction Order〓
 
 The sequence is USB boot, Windows fallback confirmation, macOS installation, graphics package setup, and validation of built-in devices. A matching laptop with macOS already installed can start at [Quick Start](../README.en.md).

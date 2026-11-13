@@ -24,7 +24,7 @@ These results come from one reference laptop. Changes validated after the releas
 | Wireless | AX201 Wi-Fi connected. A Bluetooth mouse paired and reconnected after being switched off and back on |
 | Audio | Internal speakers play audio (AppleALC layout 37). The built-in microphone showed no input level |
 | Camera | Live preview worked in Photo Booth. Photo and video capture remain unverified |
-| Power | Battery support through SMCBatteryManager. Sleep and wake compatibility remain undocumented |
+| Power | Battery level and charging state verified. The desktop still fails to return after sleep. See [sleep and wake testing](docs/build-notes.en.md#sleep-and-wake-testing) |
 
 ## 〓Quick Start〓
 
