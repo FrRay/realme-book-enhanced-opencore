@@ -1,5 +1,26 @@
 # 依赖与来源 / Components and Sources
 
+## 〓开源鸣谢 / Acknowledgments〓
+
+感谢以下开源项目的维护者和贡献者。 / Thanks to the maintainers and contributors of the following projects.
+
+| 上游项目 / Upstream project | 在本项目中的用途 / Role in this project |
+| --- | --- |
+| [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg) | 提供 OpenCore 引导和 OpenRuntime。 / Provides the OpenCore bootloader and OpenRuntime. |
+| [Lilu](https://github.com/acidanthera/Lilu) | 为显卡、音频等补丁提供运行框架。 / Provides the framework for graphics, audio, and other patches. |
+| [VirtualSMC](https://github.com/acidanthera/VirtualSMC) | 提供 SMC 模拟，配套的 SMCBatteryManager 用于识别电池状态。 / Provides SMC emulation and battery reporting through SMCBatteryManager. |
+| [WhateverXe](https://github.com/b00t0x/WhateverXe) | 提供 Iris Xe 图形加速，也是本机 Keep-PWM 改版的基础。 / Enables Iris Xe graphics acceleration and forms the basis of the local Keep-PWM build. |
+| [AppleALC](https://github.com/acidanthera/AppleALC) | 适配 Realtek ALC269 音频。 / Enables audio on the Realtek ALC269. |
+| [VoodooPS2](https://github.com/acidanthera/VoodooPS2)、[BrightnessKeys](https://github.com/acidanthera/BrightnessKeys) | 分别支持内置键盘和亮度快捷键。 / Support the built-in keyboard and brightness shortcuts, respectively. |
+| [VoodooI2C](https://github.com/VoodooI2C/VoodooI2C) | 提供 I²C HID 触控板支持，也是本机触控板改版的基础。 / Provides I²C HID touchpad support and forms the basis of the local touchpad build. |
+| [OpenIntelWireless/itlwm](https://github.com/OpenIntelWireless/itlwm)、[laobamac/itlwm](https://github.com/laobamac/itlwm) | 提供 Intel Wi-Fi 驱动和 Sequoia 版 AirportItlwm。 / Provide the Intel Wi-Fi driver and the AirportItlwm build for Sequoia. |
+| [OpenIntelWireless/IntelBluetoothFirmware](https://github.com/OpenIntelWireless/IntelBluetoothFirmware)、[lshbluesky/IntelBluetoothFirmware](https://github.com/lshbluesky/IntelBluetoothFirmware) | 提供 Intel 蓝牙固件加载和 IntelBTPatcher。 / Provide Intel Bluetooth firmware loading and IntelBTPatcher. |
+| [BrcmPatchRAM](https://github.com/acidanthera/BrcmPatchRAM) | 提供用于蓝牙兼容的 BlueToolFixup。 / Provides BlueToolFixup for Bluetooth compatibility. |
+
+也感谢 b00t0x 提供 [WhateverXe Graphics](https://github.com/b00t0x/WhateverXe-Graphics) 安装包及配套的 AMFIPass Mod。感谢 labrouss 的 [S0ixStandby](https://github.com/labrouss/S0ixStandby) 为发行后的睡眠与唤醒试验提供支持，参考机仍有唤醒失败的情况。
+
+Thanks also to b00t0x for the [WhateverXe Graphics](https://github.com/b00t0x/WhateverXe-Graphics) installer and matching AMFIPass Mod, and to labrouss for [S0ixStandby](https://github.com/labrouss/S0ixStandby), used in post-release sleep and wake testing. Wake still fails on the reference machine.
+
 ## 〓发行包内容 / Included Files〓
 
 v0.1.0 发行包的 OpenCore、ACPI 与机型适配组件取自参考机发布时的启动 U 盘。`PlatformInfo → Generic` 的本机身份字段使用模板。 The v0.1.0 archive contains OpenCore, ACPI, and model-specific components from the reference USB EFI at release time. Machine-specific fields in `PlatformInfo → Generic` use template values.
